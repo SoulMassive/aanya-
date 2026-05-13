@@ -7,39 +7,39 @@ import Link from 'next/link'
 
 const solutions = [
   {
-    title: 'Enterprise Learning',
+    title: 'ENTERPRISE LEARNING',
     links: [
-      { name: 'Corporate Training', href: '#' },
-      { name: 'Leadership Development', href: '#' },
-      { name: 'Digital Upskilling', href: '#' },
-      { name: 'Compliance Training', href: '#' },
+      { name: 'Corporate Training', href: '/solutions/corporate-training' },
+      { name: 'Leadership Development', href: '/solutions/leadership-development' },
+      { name: 'Digital Upskilling', href: '/solutions/digital-upskilling' },
+      { name: 'Compliance Training', href: '/solutions/compliance-training' },
     ],
   },
   {
-    title: 'AI Solutions',
+    title: 'AI SOLUTIONS',
     links: [
-      { name: 'Intelligent Tutoring', href: '#' },
-      { name: 'Adaptive Learning', href: '#' },
-      { name: 'Predictive Analytics', href: '#' },
-      { name: 'Content Automation', href: '#' },
+      { name: 'Intelligent Tutoring', href: '/solutions/intelligent-tutoring' },
+      { name: 'Adaptive Learning', href: '/solutions/adaptive-learning' },
+      { name: 'Predictive Analytics', href: '/solutions/predictive-analytics' },
+      { name: 'Content Automation', href: '/solutions/content-automation' },
     ],
   },
   {
-    title: 'Workforce Development',
+    title: 'WORKFORCE DEVELOPMENT',
     links: [
-      { name: 'Skill Mapping', href: '#' },
-      { name: 'Talent Mobility', href: '#' },
-      { name: 'Performance Insights', href: '#' },
-      { name: 'Recruitment AI', href: '#' },
+      { name: 'Skill Mapping', href: '/solutions/skill-mapping' },
+      { name: 'Talent Mobility', href: '/solutions/talent-mobility' },
+      { name: 'Performance Insights', href: '/solutions/performance-insights' },
+      { name: 'Recruitment AI', href: '/solutions/recruitment-ai' },
     ],
   },
   {
-    title: 'EdTech Strategy',
+    title: 'EDTECH STRATEGY',
     links: [
-      { name: 'Digital Transformation', href: '#' },
-      { name: 'LMS Implementation', href: '#' },
-      { name: 'Experience Design', href: '#' },
-      { name: 'ROI Analytics', href: '#' },
+      { name: 'Digital Transformation', href: '/solutions/digital-transformation' },
+      { name: 'LMS Implementation', href: '/solutions/lms-implementation' },
+      { name: 'Experience Design', href: '/solutions/experience-design' },
+      { name: 'ROI Analytics', href: '/solutions/roi-analytics' },
     ],
   },
 ]
@@ -85,16 +85,16 @@ export function Navbar() {
               Solutions <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeMenu === 'solutions' ? 'rotate-180' : ''}`} />
             </button>
           </div>
-          <Link href="#about" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
+          <Link href="/#about" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
             About
           </Link>
-          <Link href="#why" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
+          <Link href="/#why" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
             Why Aanya
           </Link>
-          <Link href="#cases" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
+          <Link href="/#cases" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
             Case Studies
           </Link>
-          <Link href="#insights" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
+          <Link href="/#insights" className="text-[15px] font-medium text-white/80 hover:text-white transition-colors">
             Insights
           </Link>
         </div>
@@ -121,37 +121,73 @@ export function Navbar() {
       {/* Mega Menu */}
       <AnimatePresence>
         {activeMenu === 'solutions' && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 w-full bg-[#0D2640] border-y border-white/8 py-12"
-            onMouseEnter={() => setActiveMenu('solutions')}
-            onMouseLeave={() => setActiveMenu(null)}
-          >
-            <div className="max-w-[1320px] mx-auto px-6 grid grid-cols-4 gap-8">
-              {solutions.map((category) => (
-                <div key={category.title}>
-                  <h4 className="text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-cyan mb-6">
-                    {category.title}
-                  </h4>
-                  <ul className="space-y-4">
-                    {category.links.map((link) => (
-                      <li key={link.name}>
-                        <Link 
-                          href={link.href}
-                          className="text-[15px] text-white/70 hover:text-white hover:translate-x-1 transition-all flex items-center"
-                        >
-                          {link.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[-1]"
+              onMouseEnter={() => setActiveMenu(null)}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="absolute top-full left-0 w-full bg-[#071B2A] border-b border-white/8 shadow-2xl z-50 overflow-hidden"
+              onMouseEnter={() => setActiveMenu('solutions')}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <div className="max-w-[1320px] mx-auto px-8 py-10">
+                <div className="grid grid-cols-4 gap-12">
+                  {solutions.map((category) => (
+                    <div key={category.title}>
+                      <h4 className="text-[#38BDF8] text-[11px] font-mono tracking-[0.2em] uppercase mb-6 pl-3 border-l-2 border-blue font-bold">
+                        {category.title}
+                      </h4>
+                      <ul className="space-y-4">
+                        {category.links.map((link) => (
+                          <li key={link.name}>
+                            <Link 
+                              href={link.href}
+                              className="group/link flex items-center gap-2 text-white/65 hover:text-white text-sm transition-all duration-200 hover:translate-x-2"
+                              onClick={() => setActiveMenu(null)}
+                            >
+                              <ArrowRight className="w-3 h-3 text-blue opacity-0 -ml-5 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-200" />
+                              {link.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </motion.div>
+
+                {/* Bottom Bar */}
+                <div className="mt-10 pt-8 border-t border-white/6 flex items-center justify-between">
+                  <div className="flex items-center gap-6">
+                    <Link href="/solutions" className="flex items-center gap-2 text-sm font-bold text-blue hover:text-cyan transition-colors">
+                      Explore all solutions <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link href="/contact" className="text-sm font-medium text-white/40 hover:text-white transition-colors">
+                      Or talk to an expert
+                    </Link>
+                  </div>
+                  
+                  <div className="flex items-center gap-4">
+                    <span className="text-[11px] font-mono text-white/20 uppercase tracking-widest">200+ enterprises trust Aanya</span>
+                    <div className="flex -space-x-2">
+                      {['JD', 'SK', 'AL'].map((initial, i) => (
+                        <div key={i} className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white/60">
+                          {initial}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
