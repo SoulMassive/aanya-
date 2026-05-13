@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Sora, Inter, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { ModalProvider } from '@/context/modal-context'
+import { ModalContainer } from '@/components/modals/modal-container'
 import './globals.css'
 
 const sora = Sora({ subsets: ["latin"], variable: '--font-sora' });
@@ -38,8 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${inter.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <ModalProvider>
+          {children}
+          <ModalContainer />
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ModalProvider>
       </body>
     </html>
   )

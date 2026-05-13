@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { GhostButton, PrimaryButton } from '../ui/cta-buttons'
+import { useModals } from '@/context/modal-context'
 
 interface HeroProps {
   headline: string
@@ -13,6 +15,7 @@ interface HeroProps {
 }
 
 export const SolutionHero = ({ headline, sub, badge, metric, chatPreview, nodeGraph }: HeroProps) => {
+  const { setConsultationOpen, setGetStartedOpen } = useModals()
   return (
     <section className="relative pt-40 pb-24 overflow-hidden bg-[#071B2A]">
       {/* Background Glow */}
@@ -39,12 +42,12 @@ export const SolutionHero = ({ headline, sub, badge, metric, chatPreview, nodeGr
             </p>
             
             <div className="flex flex-wrap gap-4">
-              <button className="px-8 py-4 bg-blue text-white rounded-xl font-bold hover:bg-blue-glow hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all">
+              <PrimaryButton onClick={() => setGetStartedOpen(true)}>
                 Request Demo
-              </button>
-              <button className="px-8 py-4 bg-white/5 border border-white/15 text-white rounded-xl font-bold hover:bg-white/10 transition-all flex items-center gap-2">
-                Download Brochure <ArrowRight className="w-4 h-4" />
-              </button>
+              </PrimaryButton>
+              <GhostButton onClick={() => setConsultationOpen(true)}>
+                Download Brochure
+              </GhostButton>
             </div>
           </motion.div>
           

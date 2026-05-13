@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ArrowRight, Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import { GhostButton, PrimaryButton } from './ui/cta-buttons'
+import { useModals } from '@/context/modal-context'
 
 const solutions = [
   {
@@ -48,6 +50,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const { setConsultationOpen, setGetStartedOpen } = useModals()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,12 +104,12 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="hidden lg:flex items-center gap-4">
-          <button className="px-5 py-2.5 text-sm font-medium text-white border border-white/20 rounded-lg hover:bg-white/10 transition-all">
+          <GhostButton onClick={() => setConsultationOpen(true)}>
             Book Consultation
-          </button>
-          <button className="px-5 py-2.5 text-sm font-medium text-white bg-blue rounded-lg hover:bg-blue-glow transition-all flex items-center gap-2 group">
-            Get Started <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </GhostButton>
+          <PrimaryButton onClick={() => setGetStartedOpen(true)}>
+            Get Started
+          </PrimaryButton>
         </div>
 
         {/* Mobile Toggle */}
@@ -218,12 +221,18 @@ export function Navbar() {
             </div>
 
             <div className="mt-auto flex flex-col gap-4">
-              <button className="w-full py-4 text-white border border-white/20 rounded-xl font-bold">
+              <GhostButton 
+                onClick={() => { setConsultationOpen(true); setIsMobileOpen(false); }}
+                className="w-full py-4 text-base"
+              >
                 Book Consultation
-              </button>
-              <button className="w-full py-4 bg-blue text-white rounded-xl font-bold">
+              </GhostButton>
+              <PrimaryButton 
+                onClick={() => { setGetStartedOpen(true); setIsMobileOpen(false); }}
+                className="w-full py-4 text-base"
+              >
                 Get Started
-              </button>
+              </PrimaryButton>
             </div>
           </motion.div>
         )}

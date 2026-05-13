@@ -1,0 +1,55 @@
+import { NextResponse } from 'next/server'
+import dbConnect from '@/lib/dbConnect'
+import Admin from '@/models/Admin'
+import jwt from 'jsonwebtoken'
+import { cookies } from 'next/headers'
+
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret'
+
+export async function POST(req: Request) {
+  try {
+    await dbConnect()
+    const { email, password } = await req.json()
+
+    // Find admin by email
+    const admin = await Admin.findOne({ email })
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Invalid credentials' }, { status: 401 })
+    }
+
+    // Check password
+    const isMatch = await admin.comparePassword(password)
+    if (!isMatch) {
+      return NextResponse.json({ success: false, error: 'Invalid credentials' }, { status: 401 })
+    }
+
+    // Create JWT
+    const token = jwt.sign(
+      { id: admin._id, email: admin.email, role: admin.role },
+      JWT_SECRET,
+      { expiresIn: '1d' }
+    )
+
+    // Set cookie
+    const cookieStore = await cookies()
+    cookieStore.set('admin_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 86400, // 1 day
+      path: '/',
+    })
+
+    return NextResponse.json({ 
+      success: true, 
+      admin: {
+        id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        role: admin.role
+      }
+    })
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+  }
+}

@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { LucideIcon, ArrowRight } from 'lucide-react'
+import { GhostButton, PrimaryButton } from '../ui/cta-buttons'
+import { useModals } from '@/context/modal-context'
 
 // --- Features ---
 export const SolutionFeatures = ({ features }: { features: any[] }) => (
@@ -90,24 +92,27 @@ export const SolutionMetrics = ({ metrics }: { metrics: any[] }) => (
 )
 
 // --- CTA ---
-export const SolutionCTA = ({ category }: { category: string }) => (
-  <section className="py-32 bg-[#0D2640] relative overflow-hidden">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,#2563EB15,transparent)]" />
-    <div className="max-w-[800px] mx-auto px-6 text-center relative z-10">
-      <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-8">
-        Ready to transform your {category.toLowerCase()} experience?
-      </h2>
-      <p className="text-xl text-white/60 mb-12 leading-relaxed">
-        Join 200+ leading enterprises using Aanya to future-proof their workforce and learning infrastructure.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <button className="px-10 py-5 bg-blue text-white rounded-xl font-bold hover:bg-blue-glow transition-all">
-          Book a Consultation
-        </button>
-        <button className="px-10 py-5 bg-white/5 border border-white/10 text-white rounded-xl font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2">
-          View Case Studies <ArrowRight className="w-4 h-4" />
-        </button>
+export const SolutionCTA = ({ category }: { category: string }) => {
+  const { setConsultationOpen, setGetStartedOpen } = useModals()
+  return (
+    <section className="py-32 bg-[#0D2640] relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,#2563EB15,transparent)]" />
+      <div className="max-w-[800px] mx-auto px-6 text-center relative z-10">
+        <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-8">
+          Ready to transform your {category.toLowerCase()} experience?
+        </h2>
+        <p className="text-xl text-white/60 mb-12 leading-relaxed">
+          Join 200+ leading enterprises using Aanya to future-proof their workforce and learning infrastructure.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <PrimaryButton size="lg" onClick={() => setGetStartedOpen(true)}>
+            Book a Consultation
+          </PrimaryButton>
+          <GhostButton size="lg" onClick={() => {}}>
+            View Case Studies
+          </GhostButton>
+        </div>
       </div>
-    </div>
-  </section>
-)
+    </section>
+  )
+}

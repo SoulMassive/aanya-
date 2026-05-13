@@ -22,6 +22,8 @@ import {
 } from 'lucide-react'
 import { Navbar } from '@/components/navbar'
 import Link from 'next/link'
+import { GhostButton, PrimaryButton } from '@/components/ui/cta-buttons'
+import { useModals } from '@/context/modal-context'
 
 // --- Utility Components ---
 
@@ -98,6 +100,7 @@ const Hero = () => {
   const words = "Transforming Enterprise Learning Through".split(" ")
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
+  const { setGetStartedOpen } = useModals()
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return
@@ -195,14 +198,15 @@ const Hero = () => {
             transition={{ delay: 1.0, duration: 0.6 }}
             className="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start"
           >
-            <motion.button 
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 bg-blue text-white rounded-xl font-bold shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.6)] transition-all relative overflow-hidden group"
-            >
-              <span className="relative z-10">Explore Solutions</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            </motion.button>
+            <PrimaryButton size="lg" onClick={() => setGetStartedOpen(true)}>
+              Explore Solutions
+            </PrimaryButton>
+            <GhostButton size="lg" onClick={() => {
+              const overview = document.getElementById('about');
+              if (overview) overview.scrollIntoView({ behavior: 'smooth' });
+            }}>
+              Watch Overview
+            </GhostButton>
           </motion.div>
         </motion.div>
 
@@ -966,6 +970,7 @@ const Insights = () => {
 }
 
 const CTA = () => {
+  const { setGetStartedOpen, setConsultationOpen } = useModals()
   return (
     <section className="py-32 bg-[#071B2A] relative overflow-hidden">
       <motion.div 
@@ -988,12 +993,19 @@ const CTA = () => {
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="px-10 py-5 bg-blue text-white rounded-xl font-bold hover:bg-blue-glow hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all">
+          <PrimaryButton 
+            size="lg" 
+            className="shadow-[0_0_40px_rgba(37,99,235,0.35)]"
+            onClick={() => setGetStartedOpen(true)}
+          >
             Book a Demo
-          </button>
-          <button className="px-10 py-5 bg-transparent border-2 border-white/20 text-white rounded-xl font-bold hover:bg-white/5 transition-all">
+          </PrimaryButton>
+          <GhostButton 
+            size="lg"
+            onClick={() => setConsultationOpen(true)}
+          >
             Talk to Sales
-          </button>
+          </GhostButton>
         </div>
         
         <div className="mt-12 flex justify-center gap-6 text-white/30 text-[12px] font-medium uppercase tracking-widest">
