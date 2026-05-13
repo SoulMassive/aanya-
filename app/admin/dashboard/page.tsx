@@ -52,7 +52,7 @@ export default function DashboardOverview() {
   const statCards = [
     { name: 'Total Leads', value: stats.totalLeads, icon: Users, color: 'text-blue', bg: 'bg-blue/10' },
     { name: 'Consultations', value: stats.totalConsultations, icon: MessageSquare, color: 'text-cyan', bg: 'bg-cyan/10' },
-    { name: 'Active Sessions', value: stats.activeUsers, icon: Clock, color: 'text-purple-400', bg: 'bg-purple-400/10' },
+    { name: 'Active Sessions', value: stats.activeSessions, icon: Clock, color: 'text-purple-400', bg: 'bg-purple-400/10' },
     { name: 'Conversion', value: stats.conversionRate, icon: TrendingUp, color: 'text-green-400', bg: 'bg-green-400/10' },
   ]
 
