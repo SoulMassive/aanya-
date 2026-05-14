@@ -62,8 +62,8 @@ export async function POST(req: Request) {
     console.error('CRITICAL LOGIN ERROR:', error)
     return NextResponse.json({ 
       success: false, 
-      error: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      error: error.message || 'Internal Server Error',
+      stack: error.stack
     }, { status: 500 })
   }
 }
