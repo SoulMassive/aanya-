@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { ReactNode } from "react"
 
@@ -60,7 +60,8 @@ export const PrimaryButton = ({
   children, 
   onClick, 
   className = "",
-  size = "md"
+  size = "md",
+  showArrow = true
 }: ButtonProps & { showArrow?: boolean }) => {
   const sizes = {
     sm: "px-4 py-2 text-[13px] h-[36px]",
@@ -69,7 +70,7 @@ export const PrimaryButton = ({
     xl: "px-9 py-4 text-[16px] h-[60px]"
   }
 
-  const arrowVariants = {
+  const arrowVariants: Variants = {
     rest: { x: 0 },
     hover: { x: 4, transition: { duration: 0.2, ease: "easeOut" } }
   }
@@ -113,9 +114,11 @@ export const PrimaryButton = ({
         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
       >
         <span>{children}</span>
-        <motion.span variants={arrowVariants} className="flex items-center ml-2">
-          <ArrowRight size={16} strokeWidth={2.5} />
-        </motion.span>
+        {showArrow && (
+          <motion.span variants={arrowVariants} className="flex items-center ml-2">
+            <ArrowRight size={16} strokeWidth={2.5} />
+          </motion.span>
+        )}
       </motion.button>
     </div>
   )

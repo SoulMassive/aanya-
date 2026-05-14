@@ -27,18 +27,25 @@ const AdminSchema = new mongoose.Schema({
 })
 
 // Hash password before saving
-/*
-AdminSchema.pre('save', async function() {
-  if (!this.isModified('password')) return
+AdminSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next()
   
-  const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
+  try {
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+    next()
+  } catch (error: any) {
+    next(error)
+  }
 })
-*/
 
 // Method to compare passwords
 AdminSchema.methods.comparePassword = async function(candidatePassword: string) {
-  return await bcrypt.compare(candidatePassword, this.password)
+  try {
+    return await bcrypt.compare(candidatePassword, this.password)
+  } catch (error) {
+    return false
+  }
 }
 
 export default mongoose.models.Admin || mongoose.model('Admin', AdminSchema)
